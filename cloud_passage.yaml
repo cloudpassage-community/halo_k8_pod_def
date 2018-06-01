@@ -1,0 +1,42 @@
+kind: Pod
+apiVersion: v1
+metadata:
+  name: cloudpassage
+spec:
+  hostPID: true
+  hostNetwork: true
+  containers:
+    - name: cphalo
+      image: cloudpassage/cphalo
+      args:
+        - "--debug"
+        - "--grid=https://grid.cloudpassage.com/grid"
+      securityContext:
+        privileged: true
+      env:
+        - name: AGENT_KEY
+          value: <agent_key>
+      volumeMounts:
+        - mountPath: /var/run/docker.sock
+          name: docker-sock-volume
+        - mountPath: /media/root
+          name: root
+        - mountPath: /opt/cloudpassage/data
+          name: cloudpassage-data
+        - mountPath: /opt/cloudpassage/log
+          name: cloudpassage-log
+      stdin: true
+      tty: true
+  volumes:
+    - name: docker-sock-volume
+      hostPath:
+        path: /var/run/docker.sock
+    - name: root
+      hostPath:
+        path: /
+    - name: cloudpassage-data
+      hostPath:
+        path: /opt/cloudpassage/data
+    - name: cloudpassage-log
+      hostPath:
+        path: /opt/cloudpassage/log

@@ -21,10 +21,6 @@ spec:
           name: docker-sock-volume
         - mountPath: /media/root
           name: root
-        - mountPath: /opt/cloudpassage/data
-          name: cloudpassage-data
-        - mountPath: /opt/cloudpassage/log
-          name: cloudpassage-log
       stdin: true
       tty: true
   volumes:
@@ -34,9 +30,3 @@ spec:
     - name: root
       hostPath:
         path: /
-    - name: cloudpassage-data
-      hostPath:
-        path: /opt/cloudpassage/data
-    - name: cloudpassage-log
-      hostPath:
-        path: /opt/cloudpassage/log
